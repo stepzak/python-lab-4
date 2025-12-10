@@ -1,0 +1,49 @@
+from typing import TypeVar, Type, Generic, Iterator
+
+T = TypeVar('T')
+
+class Collection(Generic[T]):
+    def __init__(self, dtype: Type[T]):
+        if not isinstance(dtype, type):
+            raise TypeError("`dtype` must be a class (type)")
+        self._dtype = dtype
+        self._items = []
+
+    @property
+    def dtype(self) -> Type[T]:
+        return self._dtype
+
+    def __len__(self) -> int:
+        return len(self._items)
+
+    def __getitem__(self, index: int) -> T:
+        return self._items[index]
+
+    def __setitem__(self, index: int, value: T):
+        if not isinstance(value, self._dtype):
+            raise TypeError(f"`value` must be an instance of {self._dtype.__name__}")
+        self._items[index] = value
+
+    def append(self, item: T) -> None:
+        if not isinstance(item, self._dtype):
+            raise TypeError(f"`item` must be an instance of {self._dtype.__name__}")
+        self._items.append(item)
+
+    def remove(self, item: T) -> None:
+        if not isinstance(item, self._dtype):
+            raise TypeError(f"`item` must be an instance of {self._dtype.__name__}")
+        self._items.remove(item)
+
+    def pop(self) -> T:
+        return self._items.pop()
+
+    def index(self, item: T) -> int:
+        if not isinstance(item, self._dtype):
+            raise TypeError(f"`item` must be an instance of {self._dtype.__name__}")
+        return self._items.index(item)
+
+    def __contains__(self, item: object) -> bool:
+        return item in self._items
+
+    def __iter__(self) -> Iterator[T]:
+        return iter(self._items)
