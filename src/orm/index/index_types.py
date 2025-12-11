@@ -1,11 +1,11 @@
 import operator
 from collections import UserDict
-from typing import Any
+from typing import Any, Iterator
 
 from sortedcontainers import SortedDict
 
-from src.base.index.abstract import AbstractIndex
-import src.base.operators as ops
+from src.orm.index.abstract import AbstractIndex
+import src.orm.operators as ops
 
 class BaseIndex(UserDict[Any, set[int]], AbstractIndex):
 

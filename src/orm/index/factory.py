@@ -1,5 +1,5 @@
-import src.base.index.index_types as i_t
-from src.base.index.abstract import AbstractIndex
+import src.orm.index.index_types as i_t
+from src.orm.index.abstract import AbstractIndex
 
 
 class IndexFactory:

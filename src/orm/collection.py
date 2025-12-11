@@ -34,8 +34,13 @@ class Collection(Generic[T]):
             raise TypeError(f"`item` must be an instance of {self._dtype.__name__}")
         self._items.remove(item)
 
-    def pop(self) -> T:
-        return self._items.pop()
+    def insert(self, item: T, index: int) -> None:
+        if not isinstance(item, self._dtype):
+            raise TypeError(f"`item` must be an instance of {self._dtype.__name__}")
+        self._items.insert(index, item)
+
+    def pop(self, index: int = -1) -> T:
+        return self._items.pop(index)
 
     def index(self, item: T) -> int:
         if not isinstance(item, self._dtype):

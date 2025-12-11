@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 
-from src.base.collection import Collection
+from src.orm.collection import Collection
 
 
 class AbstractIndex(ABC):
