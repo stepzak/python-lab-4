@@ -22,11 +22,11 @@ class DictConstraints(UserDict[cst.Constraint, set[str]]):
         self.data[key] = set(value)
 
 def is_created(func):
-    @wraps
+    @wraps(func)
     def wrapper(*args, **kwargs):
         self = args[0]
         if not self.created:
-            raise exc.TableNotCreated(func.__class__)
+            raise exc.TableNotCreated()
         return func(*args, **kwargs)
     return wrapper
 

@@ -90,6 +90,7 @@ class DatabaseSession:
         dtype = self._dtypes[dtype_name]
         collection = Collection(dtype)
         table = Table(collection, constraints)
+        table.create()
         self._tables[name] = table
 
     def drop_table(self, name: str):

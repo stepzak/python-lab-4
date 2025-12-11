@@ -7,6 +7,7 @@ class AppLogger:
     def configure_logger():
         logging.basicConfig(
             format = cst.LOG_FORMAT,
+            level = logging.INFO,
             handlers = [
                 logging.StreamHandler(sys.stdout),
                 logging.FileHandler(cst.LOG_FILE_PATH)

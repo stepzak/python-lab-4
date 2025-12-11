@@ -26,11 +26,8 @@ class Book:
     def __call__(self, *args, **kwargs):
         print(f"Reading book {self.title}")
 
-    def __next__(self):
-        pages_read = 0
-        while pages_read < self.pages:
-            pages_read += 1
-            yield pages_read
+    def __iter__(self):
+        return iter(range(1, self.pages + 1))
 
 if __name__ == "__main__":
     book = Book("a", "b", 2000, "c", 123465435462, 500)

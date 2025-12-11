@@ -1,4 +1,3 @@
-from src.orm.table import Table
 from src.constants import Constraint
 
 
@@ -11,8 +10,9 @@ class ConstraintFailed(Exception):
         self.value = value
 
 class TableNotCreated(Exception):
-    def __init__(self, table: Table) -> None:
-        self.message = f"Table {table}"
+    def __init__(self) -> None:
+        self.message = f"Table not created"
+        super().__init__(self.message)
 
 class IndexExists(Exception):
     def __init__(self, field: str) -> None:
