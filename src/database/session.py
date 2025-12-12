@@ -4,7 +4,7 @@ from dataclasses import is_dataclass, replace
 from typing import Any, TypeVar, Generic, Sequence
 import src.constants as cst
 from src.database.log_operations import Insert, Update, Delete
-from src.orm.collection import Collection
+from src.orm.collection import Collection, ImmutableCollection
 from src.orm.table import Table, DictConstraints
 
 K = TypeVar("K")
@@ -114,7 +114,7 @@ class DatabaseSession:
         table = self._tables[table_name]
         return table.query(**filters)
 
-    def select_rows(self, table_name: str, **filters) -> tuple:
+    def select_rows(self, table_name: str, **filters) -> ImmutableCollection:
         """
         :param table_name: table name
         :param filters: kwarg, passed as: FIELD__OPERATOR = VALUE; e. g. query(name__eq = 'Steve', age__gt = 18).
@@ -123,7 +123,11 @@ class DatabaseSession:
         """
         table = self._tables[table_name]
         positions = self.select(table_name, **filters)
-        return tuple(table[i] for i in positions)
+        collection = Collection(table.dtype)
+        for i in positions:
+            collection.append(table[i])
+        return ImmutableCollection(collection)
+
 
     def update(self, table_name: str, values: dict, **filters,) -> None:
         """

@@ -52,3 +52,29 @@ class Collection(Generic[T]):
 
     def __iter__(self) -> Iterator[T]:
         return iter(self._items)
+
+class ImmutableCollection(Generic[T]):
+    def __init__(self, collection: Collection[T]):
+        self._collection = collection
+
+    def __getitem__(self, index: int) -> T:
+        return self._collection[index]
+
+    @property
+    def dtype(self):
+        return self._collection.dtype
+
+    def __len__(self) -> int:
+        return len(self._collection)
+
+    def __iter__(self) -> Iterator[T]:
+        return iter(self._collection)
+
+    def __contains__(self, item: T) -> bool:
+        return item in self._collection
+
+    def __str__(self) -> str:
+        return str(self._collection._items)
+
+    def __repr__(self) -> str:
+        return f"ImmutableCollection({str(self)})"

@@ -3,6 +3,7 @@ import src.orm.exceptions as exc
 import random
 
 from src.database.session import DatabaseSession
+from src.orm.collection import ImmutableCollection
 from src.orm.table import DictConstraints
 from src.book import Book
 import src.constants as cst
@@ -19,7 +20,7 @@ class Event:
 
 @dataclass
 class SimulationResults:
-    result: tuple[Book]
+    result: ImmutableCollection[Book]
     history: list[Event]
 
     def __eq__(self, other):
