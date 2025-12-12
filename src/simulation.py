@@ -232,6 +232,7 @@ class LibrarySimulation:
                     self.process_update_book()
 
         results = self.session.select_rows("library")
+        self.drop_database()
         return SimulationResults(
             result=results,
             history=self.history,
@@ -246,8 +247,7 @@ if __name__ == "__main__":
     AppLogger.configure_logger()
     results = []
     for i in range(3):
-        res = sim.run_simulation(seed = 52, step = 40)
-        print(res)
+        res = sim.run_simulation(seed = 52, step = 3)
+        print(res.result.__repr__())
         results.append(res)
-        sim.drop_database()
     print(results[0] == results[1])

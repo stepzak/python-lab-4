@@ -51,6 +51,7 @@ class DatabaseSession:
         if isinstance(action, Delete):
             table.insert(action.row, action.position, auto_update=True)
         elif isinstance(action, Insert):
+            print(f"Rolling back {action.__repr__()}")
             table.remove_by_index(action.position, auto_update=True)
         elif isinstance(action, Update):
             table._rows[action.position] = action.old_row

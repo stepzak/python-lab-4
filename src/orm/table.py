@@ -151,7 +151,7 @@ class Table(Generic[T]):
         query(name = 'Steve') == query(name__eq = 'Steve')
         :return: set of indexes
         """
-        hints = get_type_hints(self.dtype)
+        #hints = get_type_hints(self.dtype)
         result: set[int] = set()
         if not filters:
             return set(range(len(self._rows)))
@@ -166,8 +166,8 @@ class Table(Generic[T]):
                 field, op = filter_, "eq"
 
             op_func = cst.OPERATORS[op]
-            typeof = hints[field]
-            value = typeof(value)
+            #typeof = hints[field]
+            #value = typeof(value)
             idx = self._indexes.get(field, None)
             if idx:
                 try:

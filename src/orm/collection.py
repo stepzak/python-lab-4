@@ -53,6 +53,13 @@ class Collection(Generic[T]):
     def __iter__(self) -> Iterator[T]:
         return iter(self._items)
 
+    def __eq__(self, other) -> bool:
+        if isinstance(other, list):
+            return other == self._items
+        if isinstance(other, Collection):
+            return self._items == other._items
+        return False
+
 class ImmutableCollection(Generic[T]):
     def __init__(self, collection: Collection[T]):
         self._collection = collection
@@ -78,3 +85,10 @@ class ImmutableCollection(Generic[T]):
 
     def __repr__(self) -> str:
         return f"ImmutableCollection({str(self)})"
+
+    def __eq__(self, other) -> bool:
+        if isinstance(other, tuple):
+            return other == self._collection
+        if isinstance(other, ImmutableCollection):
+            return self._collection == other._collection
+        return False
