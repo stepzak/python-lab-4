@@ -8,6 +8,7 @@ from src.orm.collection import Collection
 from src.orm.index.abstract import AbstractIndex
 import src.constants as cst
 import src.orm.exceptions as exc
+from typing import get_type_hints
 
 T = TypeVar('T')
 
@@ -150,10 +151,13 @@ class Table(Generic[T]):
         query(name = 'Steve') == query(name__eq = 'Steve')
         :return: set of indexes
         """
+        hints = get_type_hints(self.dtype)
         result: set[int] = set()
         if not filters:
             return set(range(len(self._rows)))
         for filter_, value in filters.items():
+
+
             if "__" in filter_:
                 field, op = filter_.rsplit('__', 1)
                 if op not in cst.OPERATORS:
@@ -162,7 +166,8 @@ class Table(Generic[T]):
                 field, op = filter_, "eq"
 
             op_func = cst.OPERATORS[op]
-
+            typeof = hints[field]
+            value = typeof(value)
             idx = self._indexes.get(field, None)
             if idx:
                 try:
