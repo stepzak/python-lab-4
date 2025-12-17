@@ -16,7 +16,7 @@ def db_library(session):
     session.create_table(
         "library",
         "BOOK",
-        constraints = DictConstraints({cst.Constraint.UNIQUE: {"isbn"}})
+        constraints = DictConstraints({cst.Constraint.UNIQUE: ({"isbn"}, [])})
     )
     session.create_idx("library", "base", "genre")
     session.create_idx("library", "base", "author")

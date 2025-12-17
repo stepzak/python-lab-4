@@ -1,20 +1,16 @@
-from src.power import power_function
-from src.constants import SAMPLE_CONSTANT
-
+from src.app_logger import AppLogger
+from src.simulation import LibrarySimulation
+import src.constants as cst
 
 def main() -> None:
     """
     Обязательнная составляющая программ, которые сдаются. Является точкой входа в приложение
     :return: Данная функция ничего не возвращает
     """
+    simulation = LibrarySimulation()
+    AppLogger.configure_logger()
+    print(simulation.run_simulation(cst.STEPS, cst.SEED))
 
-    target, degree = map(int, input("Введите два числа разделенные пробелом: ").split(" "))
-
-    result = power_function(target=target, power=degree)
-
-    print(result)
-
-    print(SAMPLE_CONSTANT)
 
 if __name__ == "__main__":
     main()

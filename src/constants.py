@@ -13,6 +13,9 @@ DEFAULT_TITLES: list[str] = ["Title1", "Title2", "Title3", "Title4", "Title5", "
 DEFAULT_YEAR_RANGE: tuple[int, int] = (1814, 2020)
 DEFAULT_PAGE_RANGE: tuple[int, int] = (25, 550)
 
+STEPS: int = 20
+SEED: int = 52
+
 OPERATORS: dict[str, Callable] = {
     'gt': operator.gt,
     'ge': operator.ge,
@@ -32,3 +35,4 @@ class EventType(StrEnum):
 
 class Constraint(StrEnum):
     UNIQUE = 'unique'
+    FOREIGN_KEY = 'foreign_key'

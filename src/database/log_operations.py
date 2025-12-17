@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Union
 
 
 @dataclass
@@ -18,3 +18,5 @@ class Delete:
     table_name: str
     position: int
     row: Any
+
+LogOperation = Union[Insert, Update, Delete]

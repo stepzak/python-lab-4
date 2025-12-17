@@ -8,7 +8,9 @@ from src.orm.index.abstract import AbstractIndex
 import src.orm.operators as ops
 
 class BaseIndex(UserDict[Any, set[int]], AbstractIndex):
-
+    """
+    Basic index. Uses ``{value: {pos1, pos2} }`` model
+    """
     def __init__(self, field_name: str):
         super().__init__()
         self.field_name = field_name
@@ -25,6 +27,9 @@ class BaseIndex(UserDict[Any, set[int]], AbstractIndex):
         raise NotImplementedError
 
 class RangeIndex(AbstractIndex):
+    """
+    Uses ``SortedDict`` as its model. Recommended for numeric data or data that will usually be filtered by ``'>'``, ``'<'`` etc.
+    """
     def __init__(self, field_name: str):
         self.field_name = field_name
         self._data = SortedDict()
