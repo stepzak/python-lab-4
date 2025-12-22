@@ -1,6 +1,5 @@
 from src.app_logger import AppLogger
 from src.simulation import LibrarySimulation
-import src.constants as cst
 
 def main() -> None:
     """
